@@ -142,9 +142,11 @@ module.exports = function oauthClient(config, initState) {
 			"Authorization": `Bearer ${state.access_token}`
 		};
 		let body = data;
-		if (type == "json") {
+		if (type == "json" && body != undefined) {
 			headers["Content-Type"] = "application/json";
 			body = JSON.stringify(data);
+		} else if (body == undefined) {
+			body = "";
 		}
 		return fetch(url.href, {
 			method,
