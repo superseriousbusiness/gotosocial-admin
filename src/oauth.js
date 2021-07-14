@@ -145,8 +145,6 @@ module.exports = function oauthClient(config, initState) {
 		if (type == "json" && body != undefined) {
 			headers["Content-Type"] = "application/json";
 			body = JSON.stringify(data);
-		} else if (body == undefined) {
-			body = "";
 		}
 		return fetch(url.href, {
 			method,
