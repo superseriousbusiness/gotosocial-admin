@@ -123,6 +123,7 @@ module.exports = function oauthClient(config, initState) {
 		}).then((json) => {
 			state.access_token = json.access_token;
 			storeState();
+			window.location = getCurrentUrl(); // clear ?token=
 		});
 	}
 
