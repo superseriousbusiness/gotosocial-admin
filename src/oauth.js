@@ -189,7 +189,7 @@ module.exports = function oauthClient(config, initState) {
 			// see above
 		}).then(() => {
 			localStorage.removeItem("oauth");
-			location.reload();
+			window.location = getCurrentUrl();
 		});
 	}
 
