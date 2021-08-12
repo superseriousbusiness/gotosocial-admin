@@ -4,7 +4,7 @@ const babelify = require('babelify');
 const icssify = require("icssify");
 const prettyBytes = require("pretty-bytes");
 
-const postcssPlugins = ["postcss-import", "postcss-strip-inline-comments", "postcss-nested", "postcss-simple-vars", "postcss-color-function", "autoprefixer", "postcss-math"].map((plugin) => require(plugin)());
+const postcssPlugins = ["postcss-import", "postcss-strip-inline-comments", "postcss-nested", "postcss-simple-vars", "postcss-color-function", "autoprefixer"].map((plugin) => require(plugin)());
 
 const browserifyConfig = {
 	transform: babelify.configure({presets: ["@babel/preset-env", "@babel/preset-react"]}),
