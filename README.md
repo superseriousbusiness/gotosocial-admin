@@ -2,7 +2,7 @@
 
 Standalone web admin panel for [GoToSocial](https://github.com/superseriousbusiness/gotosocial).
 
-A public hosted instance is also available at https://testingtesting123.xyz/admin, so you can fill your own instance URL in there.
+A public hosted instance is also available at https://superseriousbusiness.github.io/gotosocial-admin, so you can fill your own instance URL in there.
 
 ## Installation
 Build requirements: some version of Node.js with npm,

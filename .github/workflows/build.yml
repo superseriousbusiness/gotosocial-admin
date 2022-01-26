@@ -1,0 +1,46 @@
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    # The branches below much be a subset of the branches above.
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    # Build assets
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        cache: 'npm'
+    - name: install dev dependencies
+      run: npm install
+    - name: build assets
+      run: node index.js
+
+    # When a commit is tagged, create a release with an archive of pre-compiled assets that may be downloaded by tag or latest release.
+    # https://docs.github.com/en/repositories/releasing-projects-on-github/linking-to-releases
+    #
+    # Example asset download links:
+    # https://github.com/superseriousbusiness/gotosocial-admin/releases/download/<tag>/gts_admin.tar.gz
+    # https://github.com/superseriousbusiness/gotosocial-admin/releases/latest/download/gts_admin.tar.gz
+    - name: archive assets for release
+      run: tar cvzf gts_admin.tar.gz public/*
+    - name: publish release for tagged assets
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          gts_admin.tar.gz
+
+    # When a commit is tagged, publish assets to Github Pages (i.e. https://superseriousbusiness.github.io/gotosocial-admin)
+    - name: publish assets to github pages for tagged assets
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: public
+
