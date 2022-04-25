@@ -29,6 +29,9 @@ module.exports = function Settings({oauth}) {
 					key = "contact_username";
 					val = val.username;
 				}
+				if (key == "email") {
+					key = "contact_email";
+				}
 				if (typeof val != "object") {
 					formDataInfo.append(key, val);
 				}
