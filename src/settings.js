@@ -63,7 +63,7 @@ function editableObject(obj, path=[]) {
 	const readOnlyKeys = ["uri", "version", "urls_streaming_api", "stats"];
 	const hiddenKeys = ["contact_account_", "urls"];
 	const explicitShownKeys = ["contact_account_username"];
-	const implementedKeys = "title, contact_account_username, contact_email, short_description, description, terms, avatar, header".split(", ");
+	const implementedKeys = "title, contact_account_username, email, short_description, description, terms, avatar, header".split(", ");
 
 	let listing = Object.entries(obj).map(([key, val]) => {
 		let fullkey = [...path, key].join("_");
