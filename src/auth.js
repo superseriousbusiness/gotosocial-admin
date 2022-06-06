@@ -13,7 +13,14 @@ module.exports = function Auth({setOauth}) {
 		let thisUrl = new URL(window.location.origin);
 		thisUrl.pathname = "/api/v1/instance";
 		fetch(thisUrl.href)
-			.then((res) => res.json())
+			.then((res) => {
+				if (res.status && res.status === 200) {
+					let ct = res.headers.get("content-type");
+					if (ct && ct.indexOf("application/json") !== -1) {
+						return res.json();
+					}
+				}
+			})
 			.then((json) => {
 				if (json && json.uri) {
 					if (isStillMounted) {
