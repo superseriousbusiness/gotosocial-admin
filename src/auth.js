@@ -32,6 +32,25 @@ module.exports = function Auth({setOauth}) {
 	}, []);
 
 	function doAuth() {
+		if (typeof instance === "undefined" || instance === null) {
+			return;
+		}
+
+		let instanceUri = instance.trim();
+		if (!instanceUri.toLowerCase().startsWith("https://")) {
+			let inputUri = null;
+			try {
+				inputUri = new URL(instanceUri);
+				inputUri.protocol = "https";
+			} catch (e) {
+				inputUri = new URL("https://"+instanceUri);
+			}
+
+			if (inputUri instanceof URL) {
+				instanceUri = inputUri.toString();
+			}
+		}
+		
 		let oauth = oauthLib({
 			instance: instance,
 			client_name: "GoToSocial Admin Panel",
@@ -60,7 +79,7 @@ module.exports = function Auth({setOauth}) {
 			<h1>OAUTH Login:</h1>
 			<form onSubmit={(e) => e.preventDefault()}>
 				<label htmlFor="instance">Instance: </label>
-				<input value={instance} onChange={updateInstance} id="instance"/>
+				<input value={instance} onChange={updateInstance} id="instance" placeholder="https://gts.instance.xyz"/>
 				<button onClick={doAuth}>Authenticate</button>
 			</form>
 		</section>
